@@ -39,4 +39,17 @@ const cpfMask = inputElement => {
     inputElement.setSelectionRange(startSelection, endSelection)
 }
 
+// (xx) 9 xxxx-xxxx
+const phoneMask = inputElement => {
+    const inputValue = inputElement.value
+    let inputNewValue = inputValue.replace(/[^0-9]/g, "").replace(/^([0-9]{11}).*$/g, "$1")
+
+    inputNewValue = inputNewValue.replace(/^(.)(.)?(.)?(....)?(....)?/, "($1$2) $3 $4-$5")
+    inputNewValue = inputNewValue.replace(/(?<=\(.)\)  -|(?<=\(..\) ) -|(?<=\(..\) . )-/, "")
+
+    inputElement.value = inputNewValue
+}
+
+
+document.getElementById("phone").addEventListener("input", ({ target }) => phoneMask(target))
 document.getElementById("cpf").addEventListener("input", ({ target }) => cpfMask(target))
