@@ -6,7 +6,22 @@ const cpfMask = inputElement => {
     const currentCharIndex = endSelection
     const lastSequence = inputValue.slice(currentCharIndex - 4, currentCharIndex)
 
+    if(inputValue.length > 14) {
+        if(startSelection == 1) {
+            inputValue = inputValue.slice(startSelection)
+        } else if(startSelection == 15) {
+            inputValue.slice(0, startSelection - 1)
+        } else {
+            inputValue = inputValue.slice(0, startSelection - 1) + inputValue.slice(startSelection)
+        }
+
+        startSelection--
+        endSelection--
+    }
+
+    
     inputValue = inputValue.replace(/[^0-9]*/g, "")
+
     inputValue = inputValue.replace(/^(.{11}).*$/g, "$1")
     
     
@@ -22,7 +37,6 @@ const cpfMask = inputElement => {
 
     inputElement.value = inputNewValue
     inputElement.setSelectionRange(startSelection, endSelection)
-
 }
 
 document.getElementById("cpf").addEventListener("input", ({ target }) => cpfMask(target))
