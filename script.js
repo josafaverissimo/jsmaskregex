@@ -43,8 +43,8 @@ const phoneMask = inputElement => {
     inputNewValue = inputNewValue.replace(/^(.)(.)?(.)?(....)?(....)?/, "($1$2) $3 $4-$5")
     inputNewValue = inputNewValue.replace(/(?<=\(.)\)  -|(?<=\(..\) ) -|(?<=\(..\) . )-/, "")
 
-    if(/^.$|^\([0-9]{3}$|^\(..\).$|^\(..\) ..$|^\(..\) . .{5}/g.test(sequence)) {
-        cursorPosition += 2
+    if(/^[0-9]$|^\([0-9]{2}$|^\([0-9]{2}\)[0-9] $|^\([0-9]{2}\) [0-9]{2} $|^\([0-9]{2}\) [0-9] [0-9]{5}-$/.test(inputValue)) {
+        cursorPosition++
     }
 
     inputElement.value = inputNewValue
